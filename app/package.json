@@ -1,0 +1,19 @@
+{
+	"name": "domaindive",
+	"private": true,
+	"scripts": {
+		"compile": "tailwindcss -i domaindive/static/css/styles.tailwind -o domaindive/static/css/styles.css",
+		"watch": "tailwindcss -i domaindive/static/css/styles.tailwind -o domaindive/static/css/styles.css --watch"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.12",
+		"daisyui": "^5.0.51",
+		"tailwindcss": "^4.1.12"
+	}
+}

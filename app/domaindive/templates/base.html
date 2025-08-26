@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}
+            {% endblock title %}
+            | Domain Dive
+        </title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    </head>
+    <body class="min-h-screen ocean-gradient">
+        <div class="max-w-5xl mx-auto">
+            {% include 'partials/nav.html' %}
+            <main>
+                {% block content %}
+                {% endblock content %}
+            </main>
+        </div>
+    </body>
+</html>

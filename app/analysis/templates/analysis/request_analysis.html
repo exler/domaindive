@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load tailwind %}
+{% block content %}
+<p>
+    Dive deep into the digital ocean and uncover comprehensive insights about any domain or IP address.
+</p>
+<form class="flex flex-col justify-center items-center gap-2 w-xs" method="post" action="{% url 'request_analysis' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="w-full">
+        {{ form.address|addclass:"input w-full" }}
+        {{ form.address.errors }}
+    </div>
+    <button type="submit" class="btn btn-primary w-full">Sign in</button>
+</form>
+{% endblock %}
