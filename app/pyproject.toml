@@ -1,0 +1,23 @@
+[project]
+name = "domaindive"
+version = "0.1.0"
+description = "Dive deep into any domain or IP to uncover DNS, WHOIS, HTTP, and security details"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "python-dotenv>=1.1.1",
+    "django>=5.2.5",
+    "django-structlog>=9.1.1",
+]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=5.2.2",
+    "mypy>=1.17.1",
+    "pytest>=8.4.1",
+    "pytest-django>=4.11.1",
+    "ruff>=0.12.10",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "app.domaindive.settings"
