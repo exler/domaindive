@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="prose max-w-none">
+    <div class="flex flex-col justify-center items-center gap-1 mb-6">
+        <h2 class="text-xl font-bold">Analysis Complete</h2>
+        <p>Deep dive results for <span class="text-blue-200">{{ report.address }}</span></p>
+    </div>
+
+	{% if report.errors %}
+		<div class="alert alert-warning">
+			<h3>Dependency errors</h3>
+			<ul>
+				{% for key, err in report.errors.items %}
+					<li><strong>{{ key }}:</strong> {{ err }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		{% for item in report.items %}
+			<div class="card bg-base-200">
+				<div class="card-body">
+					<pre class="text-sm whitespace-pre-wrap">{{ item.data|safe }}</pre>
+				</div>
+			</div>
+		{% empty %}
+			<p>No information produced by analyzers.</p>
+		{% endfor %}
+	</div>
+
+	<div class="mt-6">
+		<a href="{% url 'request_analysis' %}" class="btn">Analyze another address</a>
+	</div>
+</div>
+{% endblock %}
