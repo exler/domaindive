@@ -16,7 +16,7 @@ defmodule DomaindiveWeb.PageController do
         dns_records = decode_json(domain_analysis.dns_records, %{})
         nameservers = decode_json(domain_analysis.nameservers, [])
         ssl_info = decode_json(domain_analysis.ssl_info, %{available: false})
-        http_headers = decode_json(domain_analysis.http_headers, %{})
+        http_response = decode_json(domain_analysis.http_response, %{})
         geolocation = decode_json(domain_analysis.geolocation, %{})
 
         seconds_until_refresh = Analysis.seconds_until_refresh(domain_analysis)
@@ -27,7 +27,7 @@ defmodule DomaindiveWeb.PageController do
           dns_records: dns_records,
           nameservers: nameservers,
           ssl_info: ssl_info,
-          http_headers: http_headers,
+          http_response: http_response,
           geolocation: geolocation,
           cache_status: cache_status,
           seconds_until_refresh: seconds_until_refresh

@@ -33,7 +33,7 @@ defmodule DomaindiveWeb.AnalysisLive do
         dns_records = decode_json(domain_analysis.dns_records, %{})
         nameservers = decode_json(domain_analysis.nameservers, [])
         ssl_info = decode_json(domain_analysis.ssl_info, %{available: false})
-        http_headers = decode_json(domain_analysis.http_headers, %{})
+        http_response = decode_json(domain_analysis.http_response, %{})
         geolocation = decode_json(domain_analysis.geolocation, %{})
 
         seconds_until_refresh = Analysis.seconds_until_refresh(domain_analysis)
@@ -46,7 +46,7 @@ defmodule DomaindiveWeb.AnalysisLive do
          |> assign(:dns_records, dns_records)
          |> assign(:nameservers, nameservers)
          |> assign(:ssl_info, ssl_info)
-         |> assign(:http_headers, http_headers)
+         |> assign(:http_response, http_response)
          |> assign(:geolocation, geolocation)
          |> assign(:cache_status, cache_status)
          |> assign(:seconds_until_refresh, seconds_until_refresh)}
@@ -103,5 +103,4 @@ defmodule DomaindiveWeb.AnalysisLive do
   defp format_dns_value(%{name: name}) when is_binary(name), do: name
   defp format_dns_value(%{data: data}) when is_binary(data), do: data
   defp format_dns_value(_), do: "N/A"
-
 end

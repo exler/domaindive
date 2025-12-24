@@ -115,7 +115,7 @@ defmodule Domaindive.Analysis do
     {:ok, ssl_data} = SslService.fetch_certificate(normalized_address)
     ssl_info = Jason.encode!(ssl_data)
 
-    http_headers =
+    http_response =
       case HttpService.fetch_headers(normalized_address) do
         {:ok, data} -> Jason.encode!(data)
         {:error, _} -> Jason.encode!(%{})
@@ -134,7 +134,7 @@ defmodule Domaindive.Analysis do
        dns_records: dns_records,
        nameservers: nameservers,
        ssl_info: ssl_info,
-       http_headers: http_headers,
+       http_response: http_response,
        geolocation: geolocation
      }}
   end

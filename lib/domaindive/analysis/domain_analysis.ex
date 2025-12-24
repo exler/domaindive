@@ -11,7 +11,7 @@ defmodule Domaindive.Analysis.DomainAnalysis do
     field :dns_records, :string
     field :nameservers, :string
     field :ssl_info, :string
-    field :http_headers, :string
+    field :http_response, :string
     field :geolocation, :string
 
     timestamps()
@@ -26,7 +26,7 @@ defmodule Domaindive.Analysis.DomainAnalysis do
       :dns_records,
       :nameservers,
       :ssl_info,
-      :http_headers,
+      :http_response,
       :geolocation
     ])
     |> validate_required([:address])

@@ -25,11 +25,7 @@ config :domaindive, DomaindiveWeb.Endpoint,
 
 if config_env() == :prod do
   database_path =
-    System.get_env("DATABASE_PATH") ||
-      raise """
-      environment variable DATABASE_PATH is missing.
-      For example: /etc/domaindive/domaindive.db
-      """
+    System.get_env("DATABASE_PATH") || "/app/db/domaindive.db"
 
   config :domaindive, Domaindive.Repo,
     database: database_path,

@@ -8,7 +8,7 @@ defmodule Domaindive.Repo.Migrations.CreateDomainAnalyses do
       add :dns_records, :text
       add :nameservers, :text
       add :ssl_info, :text
-      add :http_headers, :text
+      add :http_response, :text
       add :geolocation, :text
 
       timestamps()
