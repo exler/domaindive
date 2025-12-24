@@ -1,0 +1,10 @@
+services:
+    domaindive:
+        build: .
+        volumes:
+            - domaindive_data:/app/db
+        ports:
+            - "4000:4000"
+
+volumes:
+    domaindive_data:
