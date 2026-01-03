@@ -5,6 +5,8 @@ services:
             - domaindive_data:/app/db
         ports:
             - "4000:4000"
+        env_file: .env
+        restart: unless-stopped
 
 volumes:
     domaindive_data:
