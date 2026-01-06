@@ -1,53 +1,23 @@
-# --- Build Stage ---
-FROM elixir:1.19-alpine AS runtime_base
-
-# Install build dependencies
-RUN apk add --no-cache build-base git sqlite-dev openssl
+FROM oven/bun:1.3 AS builder
 
 WORKDIR /app
 
-# Install hex/rebar
-RUN mix local.hex --force && \
-    mix local.rebar --force
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-ENV MIX_ENV=prod
+COPY . .
+RUN bun --bun run build
 
-# Install mix dependencies
-COPY mix.exs mix.lock ./
-RUN mix deps.get --only prod
-RUN mix deps.compile
-
-# Copy application files
-COPY config config
-COPY lib lib
-COPY priv priv
-COPY assets assets
-
-# Compile and Release
-RUN mix compile
-RUN mix assets.deploy
-RUN mix release
-
-# --- Runtime Stage ---
-FROM runtime_base
-
-# Install runtime dependencies
-RUN apk add --no-cache sqlite
-
-# Create app user
-RUN addgroup -g 1000 app && \
-    adduser -D -u 1000 -G app app
+FROM oven/bun:1.3
 
 WORKDIR /app
 
-# Copy ONLY the release from the build stage
-COPY --from=runtime_base --chown=app:app /app/_build/prod/rel/domaindive ./
+COPY --from=builder /app/build build/
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules node_modules/
 
-# Create DB folder
-RUN mkdir -p /app/db && chown app:app /app/db
+EXPOSE 3000
 
-USER app
+ENV NODE_ENV=production
 
-EXPOSE 4000
-
-CMD ["bin/domaindive", "start"]
+CMD ["bun", "run", "build/index.js"]

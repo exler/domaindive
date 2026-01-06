@@ -1,12 +1,10 @@
 services:
-    domaindive:
+    web:
         build: .
-        volumes:
-            - domaindive_data:/app/db
         ports:
-            - "4000:4000"
-        env_file: .env
+            - "4000:3000"
+        volumes:
+            - ./domaindive.db:/app/domaindive.db
+        environment:
+            - NODE_ENV=production
         restart: unless-stopped
-
-volumes:
-    domaindive_data:
